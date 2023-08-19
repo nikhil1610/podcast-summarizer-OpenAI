@@ -38,15 +38,17 @@ def main():
             st.image(podcast_info['podcast_details']['episode_image'], caption="Podcast Cover", width=300, use_column_width=True)
 
         # Display the podcast guest and their details in a side-by-side layout
-        col3, col4 = st.columns([3, 7])
+        # col3, col4 = st.columns([3, 7])
+        
+        # col3 = st.columns([3])
+        # with col3:
+        st.subheader("Podcast Guest")
+        st.write(podcast_info['podcast_guest'])
 
-        with col3:
-            st.subheader("Podcast Guest")
-            st.write(podcast_info['podcast_guest']['name'])
-
-        with col4:
-            st.subheader("Podcast Guest Details")
-            st.write(podcast_info["podcast_guest"]['summary'])
+        # with col4:
+        #     st.subheader("Podcast Guest Details")
+        #     guest_summary = podcast_info.get('summary', 'Guest information is not available')
+        #     st.write(guest_summary)
 
         # Display the five key moments
         st.subheader("Key Moments")
@@ -55,6 +57,16 @@ def main():
             st.markdown(
                 f"<p style='margin-bottom: 5px;'>{moment}</p>", unsafe_allow_html=True)
 
+        # Display the Chapters section
+        st.subheader("Chapters")
+        podcast_chapters = podcast_info.get('podcast_chapters', '')
+
+        # Split chapters by '\n' and iterate through them
+        for chapter in podcast_chapters.split('\n'):
+            if chapter.strip():  # Check if the chapter is not empty
+                st.markdown(
+                    f"<p style='margin-bottom: 5px;'>{chapter}</p>", unsafe_allow_html=True)
+    
     # User Input box
     st.sidebar.subheader("Add and Process New Podcast Feed")
     url = st.sidebar.text_input("Link to RSS Feed")
